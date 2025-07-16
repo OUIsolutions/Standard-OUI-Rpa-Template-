@@ -26,8 +26,37 @@ local function navigate_to_article(session, article)
         return false
     end
     search_results[1].click()
-    os.execute("sleep 1")
+    os.execute("sleep 2")
     return true
+end
+
+local function get_article_content(session)
+    local content_map = {}
+    local page_hatnote = session.get_element_by_css_selector(".hatnote")
+    if page_hatnote then
+        content_map.hatnote = page_hatnote.get_text()
+    end
+
+    local text = ""
+
+    local body = session.get_element_by_css_selector(".mw-parser-output")
+    for i = 1, 10 do 
+        local paragraph = body.get_element_by_index(i) -- <-- fails
+        local text = tr.get_text()
+        if text and text ~= "" then
+            print(i .. ". " .. text)
+        end
+    end
+
+    -- Fails as well
+    -- local paragraphs = session.get_elements_by_css_selector(".mw-parser-output > p")
+    -- for i = 1, 10 do
+    --     local text = paragraphs[i].get_text()
+    --     if text and text ~= "" then
+    --         print(i .. ". " .. text)
+    --     end
+
+    return content_map
 end
 
 -- Example of public API function
@@ -46,11 +75,10 @@ function PublicApi.fetch_wikipedia_article(props)
     local article_found = navigate_to_article(session, article)
     if not article_found then
         print("\nArticle \"" .. article .. "\" not found.\n")
+        return nil
     end
-
     
+    local article_content = get_article_content(session)
 
-    return {
-        article_content = "Content of the article: " .. article
-    }
+    return article_content
 end
