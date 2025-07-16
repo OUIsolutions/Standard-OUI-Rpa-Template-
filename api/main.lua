@@ -1,9 +1,14 @@
--- Example of local function
-local function local_sum(x, y)
-    return x + y
-end
 
 -- Example of public API function
-function PublicApi.sum(x, y)
-    return local_sum(x, y) 
+function PublicApi.make_wikipedia_search(props)
+    local article = props.article 
+    local chromedriver_path = props.chromedriver_path
+    local chrome_binary = props.chrome_binary
+    print("Searching for article: " .. article)
+    print("Using ChromeDriver at: " .. chromedriver_path)
+    print("Using Chrome binary at: " .. chrome_binary)
+
+    return {
+        article_content = "Content of the article: " .. article
+    }
 end
