@@ -1,18 +1,21 @@
 local CONCAT_PATH = true 
 
-function build_api_no_return()
-    local files = darwin.dtw.list_files_recursively("api",CONCAT_PATH)
+-- Bundles the API files into a single Lua file
+function build_api()
+    local files = darwin.dtw.list_files_recursively("api", CONCAT_PATH)
     local content = "local PublicApi = {}\n"
     
-    for i =1,#files do
-        content = content.."\n"..darwin.dtw.load_file(files[i]) 
+    for i =1, #files do
+        content = content .. "\n" .. darwin.dtw.load_file(files[i]) 
     end
 
     content = content.."\nreturn PublicApi\n"
+
     return "(function ()\n" .. content .. "\nend)()"
 end
 
-function build_api_with_return (api_content)
+-- Bundles the API bundle into a library format
+function build_api_lib(api_content)
     return "return " .. api_content .. "\n"
 end  
 
@@ -28,14 +31,15 @@ function  build_cli(api_content)
     return content
 end
 
+-- Main bundle generation function
 function  main()
-    local api_content_no_return = build_api_no_return()
-    local api_content = build_api_with_return(api_content_no_return)
-    local cli_content = build_cli(api_content_no_return)
+    local api_content = build_api()
+    local api_lib = build_api_lib(api_content)
+    local cli_content = build_cli(api_content)
     
-    darwin.dtw.write_file("release/api_no_return.lua", api_content_no_return)
     darwin.dtw.write_file("release/api.lua", api_content)
     darwin.dtw.write_file("release/cli.lua", cli_content)
+    darwin.dtw.write_file("release/api_lib.lua", api_lib)
 end
 
 main()
