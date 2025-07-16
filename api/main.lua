@@ -40,13 +40,11 @@ local function get_article_content(session)
     local text = ""
 
     local body = session.get_element_by_css_selector(".mw-parser-output")
-    for i = 1, 10 do 
-        local paragraph = body.get_element_by_index(i) -- <-- fails
-        local text = tr.get_text()
-        if text and text ~= "" then
-            print(i .. ". " .. text)
-        end
-    end
+    
+    local sons = session.get_elements_by_css_selector("*")
+    for i=1,#sons  do 
+        print(sons[i])
+    end 
 
     -- Fails as well
     -- local paragraphs = session.get_elements_by_css_selector(".mw-parser-output > p")
