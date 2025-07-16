@@ -16,17 +16,23 @@ function main()
         print("Error: Chrome binary argument is required.")
         return
     end
-    local out_json = argv.get_flag_arg_by_index({ "out_json" }, 1)
-    if not out_json then
-        print("Error: Output JSON file argument is required.")
+    local out_dir  = argv.get_flag_arg_by_index({ "out_dir", "output_dir" }, 1)
+    if not out_dir then
+        print("Error: Output directory argument is required.")
         return
     end
+    dtw.remove_any(out_dir)
+    local download_path = out_dir.."/downloads/"
+    dtw.write_file(download_path.."nothing","")
+    dtw.remove_any(download_path.."nothing")
+
     local result = Rpa.make_wikipedia_search({
         article = article,
         chromedriver_path = chromedriver_path,
-        chrome_binary = chrome_binary
+        chrome_binary = chrome_binary,
+        outdir=download_path
     })
-    dtw.write_file(out_json,json.dumps_to_string(result))
-
+    dtw.write_file(out_dir.."/result.json",json.dumps_to_string(result))
+  
 
 end

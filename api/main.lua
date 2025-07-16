@@ -7,7 +7,7 @@ function PublicApi.make_wikipedia_search(props)
     print("Searching for article: " .. article)
     print("Using ChromeDriver at: " .. chromedriver_path)
     print("Using Chrome binary at: " .. chrome_binary)
-
+    print("Saving dowloads to : " .. props.outdir)
     return {
         article_content = "Content of the article: " .. article
     }
