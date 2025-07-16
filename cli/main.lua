@@ -1,5 +1,3 @@
-
-
 function main()
-    Rpa.api_function_teste()
+    print(Rpa.sum(1, 2))
 end
