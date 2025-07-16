@@ -21,9 +21,13 @@ local function navigate_to_article(session, article)
     search_input.click()
     search_input.send_keys(article)
     os.execute("sleep 1")
-    local search_result = session.get_element_by_css_selector(".cdx-menu-item__content")
-    search_result.click()
+    local search_results = session.get_elements_by_css_selector(".cdx-menu-item__content")
+    if #search_results <= 1 then
+        return false
+    end
+    search_results[1].click()
     os.execute("sleep 1")
+    return true
 end
 
 -- Example of public API function
@@ -39,7 +43,12 @@ function PublicApi.fetch_wikipedia_article(props)
     print("\n")
 
     local session = init_chromedriver(chromedriver_path, chrome_binary)
-    navigate_to_article(session, article)
+    local article_found = navigate_to_article(session, article)
+    if not article_found then
+        print("\nArticle \"" .. article .. "\" not found.\n")
+    end
+
+    
 
     return {
         article_content = "Content of the article: " .. article
