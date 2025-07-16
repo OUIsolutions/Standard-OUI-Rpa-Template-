@@ -1,3 +1,3 @@
 
 local api = require("release/api")
-print(api.api_function_teste())
+print(api.sum(10,20))
