@@ -1,4 +1,4 @@
-# 🤖 OUI Standard RPA Template
+# 🤖 OUI Solutions Standard RPA Template
 
 A standard model for Robot Proceess Automation using Vibescript.
 
@@ -47,6 +47,12 @@ All of the code under the `api/` and `cli/` directories is bundled to `release/`
 │   └── main.lua     # CLI implementation of the API
 └── README.md        # This documentation
 ```
+
+#### `api/scripts.lua`
+
+The file `api/scripts.lua` conttains a JS function to be executed by the webdriver session. This was done in order to get the text content from the article page as it may be extremely large.
+
+Consider using JS functions in such cases.
 
 ### Release Bundle Structure
 
