@@ -5,7 +5,6 @@ function build_api()
     local files = darwin.dtw.list_files_recursively("api", CONCAT_PATH)
     
     local content = "local PublicApi = {}\n"
-    content = content.. "webdriver = require('luaWebDriver')\n"
     for i =1, #files do
         content = content .. "\n" .. darwin.dtw.load_file(files[i]) 
     end
