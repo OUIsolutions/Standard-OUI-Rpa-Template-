@@ -74,6 +74,46 @@ To bundle the code under `api/` and `cli/` just run the following command on the
 darwin run_blueprint
 ```
 
+## ❗ Development Notice
+
+Because of the nature of Lua and the bundle content, make sure to use standardized and different names having scope handling in mind. Public functions must be created through the `PublicApi` table and private functions should either be declared using `local function...` or through the `PrivateApi` table.
+
+Functions declared on the `PublicApi` table under `api/` will be available for use in the `API` table in the release bundle.
+
+> Keep in mind that private functions used in a file should **only** be used in that file alone as the Lua language does not support function hoisting.
+
+### ❌ Incorrect Usage
+
+```lua
+-- api/main.lua
+function fetch_wikipedia_article(props)
+    ...
+end
+
+-- cli/main.lua
+function main()
+  ...
+  fetch_wikipedia_article(props)
+  ...
+end
+```
+
+### ✅ Correct Usage
+
+```lua
+-- api/main.lua
+function PublicApi.fetch_wikipedia_article(props)
+    ...
+end
+
+-- cli/main.lua
+function main()
+  ...
+  API.fetch_wikipedia_article(props)
+  ...
+end
+```
+
 The bundling is done according to what's described in `darwinconf.lua` file.
 
 ## 🛠️ Usage
