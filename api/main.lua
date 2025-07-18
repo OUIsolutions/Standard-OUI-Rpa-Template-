@@ -39,8 +39,7 @@ local function get_article_content(session)
     end
 
     local text = session.get_element_by_id("mw-content-text")
-    local js_code_to_get_all_text_from_element = PrivateApi.get_all_text .."(arguments[0])"
-    content_map.text  =text.execute_script(js_code_to_get_all_text_from_element)
+    content_map.text  =text.execute_script(PrivateApi.get_all_text )
     return content_map
 end
 

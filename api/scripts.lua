@@ -9,6 +9,6 @@ return (function getAllTextFromElement(element) {
                     text += getAllTextFromElement(child) + " ";
                 }
             }
-            return text.trim();
-})
+return text.trim();
+})(arguments[0]);
 ]]
