@@ -42,8 +42,7 @@ local function get_article_content(session)
 
     local body = session.get_element_by_css_selector("body")
     print("session id is " .. session.get_id())
-    local div = body.get_element_by_class_name("mw-page-container")
-    print(div)
+    local sons = body.get_elements_by_css_selector("*")
     while true do end 
 
     -- Fails as well
