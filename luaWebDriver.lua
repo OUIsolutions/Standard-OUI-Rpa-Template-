@@ -241,6 +241,9 @@ PublicElement.get_elements = function(_public, private, selector, value)
             end
             return elements
         end
+    else 
+        local error_body = response.read_body()
+        error("Failed to get elements: " .. (error_body or "Unknown error"))
     end
     return {}
 end
