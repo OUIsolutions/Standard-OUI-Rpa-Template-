@@ -28,7 +28,7 @@ function main()
     dtw.write_file(download_path.."nothing","")
     dtw.remove_any(download_path.."nothing")
 
-    local result = Rpa.fetch_wikipedia_article({
+    local result = API.fetch_wikipedia_article({
         article = article,
         chromedriver_path = chromedriver_path,
         chrome_binary = chrome_binary,

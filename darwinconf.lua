@@ -23,7 +23,7 @@ end
 function  build_cli(api_content)
     local files = darwin.dtw.list_files_recursively("cli",CONCAT_PATH)
 
-    local content = "local Rpa = " ..api_content .. "\n"
+    local content = "local API = " ..api_content .. "\n"
     for i =1,#files do 
         content = content.."\n"..darwin.dtw.load_file(files[i]) 
     end     
