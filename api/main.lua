@@ -38,22 +38,9 @@ local function get_article_content(session)
         content_map.hatnote = page_hatnote.get_text()
     end
 
-    local text = ""
-
-    local body = session.get_element_by_css_selector("body")
-    print("session id is " .. session.get_id())
-    local sons = body.get_elements_by_css_selector("*")
-    print("encontrou um total de " .. #sons .. " filhos")
-    while true do end 
-
-    -- Fails as well
-    -- local paragraphs = session.get_elements_by_css_selector(".mw-parser-output > p")
-    -- for i = 1, 10 do
-    --     local text = paragraphs[i].get_text()
-    --     if text and text ~= "" then
-    --         print(i .. ". " .. text)
-    --     end
-
+    local text = session.get_element_by_id("mw-content-text")
+    local js_code_to_get_all_text_from_element = PrivateApi.get_all_text .."(arguments[0])"
+    content_map.text  =text.execute_script(js_code_to_get_all_text_from_element)
     return content_map
 end
 
