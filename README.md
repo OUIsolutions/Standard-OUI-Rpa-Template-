@@ -6,23 +6,33 @@ A standard model for Robot Proceess Automation using Vibescript.
 
 This RPA template automates the process of extracting Wikipedia articles using Chrome WebDriver.
 
-The created features can be used either through the provided CLI on `release/cli.lua` or by importing the generated library on `release/api_lib.lua`.
+The created features can be used either through the provided CLI on `release/cli.lua` or by importing the generated library on `release/api_lib.lua` on a lua file.
 
 In this example, the following actions happen:
 
 1. 🚀 **Initialization**: Sets up ChromeDriver and opens browser session
-2. 🔍 **Navigation**: Goes to Wikipedia main page
+2. 🔍 **Navigation**: Goes to main Wikipedia page
 3. 🔎 **Search**: Enters article name in search box
 4. 📰 **Selection**: Clicks on the first search result
 5. 📄 **Data Extraction**: Retrieves article content and hatnotes
 6. 💾 **Save**: Outputs results to **JSON** file
 
-## 📦 Requirements
+## 📝 Requirements
 
 - [Darwin](https://github.com/OUIsolutions/Darwin#-installation)
 - [VibeScript](https://github.com/ouisolutions/vibescript#-installation)
 - Chrome binary (chrome or chromium browser)
 - ChromeDriver
+
+## 📦 Installation
+
+**Download and install** the correct [VibeScript](https://github.com/OUIsolutions/VibeScript/releases/) release for your operational system.
+
+**Download and install** [Darwin](https://github.com/OUIsolutions/Darwin#-installation):
+
+```bash
+curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.4.0/darwin.out -o darwin.out && sudo chmod +x darwin.out && sudo mv darwin.out /usr/bin/darwin
+```
 
 ## 📁 Project Structure
 
@@ -41,14 +51,15 @@ All of the code under the `api/` and `cli/` directories is bundled to `release/`
 ### Release Bundle Structure
 
 ```
-└── release/         # Compiled/bundled versions
+└── release/         # Bundled versions
     ├── cli.lua      # Main CLI interface
     ├── api.lua      # API library
     └── api_lib.lua  # Importable API library
 ```
 
-## 🛠️ Bundling
+## 📦 Bundling
 
+> [!IMPORTANT]
 > Make sure to have [Darwin](https://github.com/OUIsolutions/Darwin/) installed.
 
 To bundle the code under `api/` and `cli/` just run the following command on the root directory of the project:
@@ -73,7 +84,7 @@ vibescript release/cli.lua --article <article_name> --chromedriver_path <path> -
 
 | Option                | Alias | Description                                | Required | Example                                                            |
 | --------------------- | ----- | ------------------------------------------ | -------- | ------------------------------------------------------------------ |
-| `--article`           | `-a`  | 📰 Name of the Wikipedia article to search | ✅ Yes   | `--article "Machine Learning"`                                     |
+| `--article`           | `-a`  | 📰 Name of the Wikipedia article to search | ✅ Yes   | `--article "Phreaking"`                                            |
 | `--chromedriver_path` | `-d`  | 🚗 Path to ChromeDriver executable         | ✅ Yes   | `--chromedriver_path ./chrome-1/chromedriver-linux64/chromedriver` |
 | `--chrome_binary`     | `-c`  | 🌐 Path to Chrome/Chromium binary          | ✅ Yes   | `--chrome_binary ./chrome-1/chrome-linux64/chrome`                 |
 | `--out_dir`           | `-o`  | 📁 Output directory for results            | ✅ Yes   | `--out_dir "./data"`                                               |
@@ -81,7 +92,7 @@ vibescript release/cli.lua --article <article_name> --chromedriver_path <path> -
 ### 💡 Example
 
 ```bash
-vibescript cli.lua -a "Phreaking" -d "./chrome/chromedriver-linux64/chromedriver" -c "./chrome/chrome-linux64/chrome" -o "./data"
+vibescript release/cli.lua -a "Phreaking" -d "./chrome/chromedriver-linux64/chromedriver" -c "./chrome/chrome-linux64/chrome" -o "./data"
 ```
 
 ## 📤 Output
