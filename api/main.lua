@@ -1,3 +1,4 @@
+
 local function init_chromedriver(chromedriver_path, chrome_binary)
     -- Setup WebDriver server
     local server = webdriver.newLocalServer({
