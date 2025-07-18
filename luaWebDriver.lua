@@ -230,7 +230,8 @@ PublicElement.get_elements = function(_public, private, selector, value)
         local body = response.read_body_json()
         if body.value and #body.value > 0 then
             local elements = {}
-            for _, element_data in ipairs(body.value) do
+            for i=1,#body.value do
+                local element_data = body.value[i]
                 print("element id is " .. element_data["element-6066-11e4-a52e-4f735466cecf"])
                 local element = Element.newElement({
                     element_id = element_data["element-6066-11e4-a52e-4f735466cecf"],

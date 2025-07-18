@@ -43,6 +43,7 @@ local function get_article_content(session)
     local body = session.get_element_by_css_selector("body")
     print("session id is " .. session.get_id())
     local sons = body.get_elements_by_css_selector("*")
+    print("encontrou um total de " .. #sons .. " filhos")
     while true do end 
 
     -- Fails as well
