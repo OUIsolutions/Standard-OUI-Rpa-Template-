@@ -3,13 +3,13 @@ local function init_chromedriver(chromedriver_path, chrome_binary)
     -- Setup WebDriver server
     local server = webdriver.newLocalServer({
         fetch = luabear.fetch,
-        chromedriver_command = "./chrome/chromedriver-linux64/chromedriver",
+        chromedriver_command = chromedriver_path,
         port = 4444
     })
 
     -- Create a new browser session
     local session = server.newSession({
-        binary_location = "./chrome/chrome-linux64/chrome",
+        binary_location = chrome_binary,
     })
 
     return session
