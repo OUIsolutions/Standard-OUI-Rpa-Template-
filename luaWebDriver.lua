@@ -165,9 +165,9 @@ PublicElement.get_element = function(public, private, selector, value)
         url = private.url .. "/session/" .. private.session_id .. "/element/" .. private.element_id .. "/element",
         body = payload
     })
-    
     if response.status_code == 200 then
         local body = response.read_body_json()
+    
         if body.value and body.value["element-6066-11e4-a52e-4f735466cecf"] then
             local element = Element.newElement({
                 element_id = body.value["element-6066-11e4-a52e-4f735466cecf"],
@@ -177,6 +177,9 @@ PublicElement.get_element = function(public, private, selector, value)
             })
             return element
         end
+    else 
+        local error_body = response.read_body()
+        error("Failed to get element: " .. (error_body or "Unknown error"))
     end
     return nil
 end
@@ -205,21 +208,22 @@ PublicElement.get_element_by_class_name = function(public, private, class_name)
     if not class_name then
         error("class_name is required to get an element by class name")
     end
-    return public.get_element("class name", class_name)
+    return public.get_element("xpath", "//*[@class='" .. class_name .. "']")
+
 end
 
 
 
 PublicElement.get_elements = function(_public, private, selector, value)
-    local payload = {
-        using = selector,
-        value = value
-    }
+
     local response = private.fetch({
         method = "POST",
         http_version="1.1",
         url = private.url .. "/session/" .. private.session_id .. "/element/" .. private.element_id .. "/elements",
-        body = payload
+        body = {
+            using = selector,
+            value = value
+        }
     })
 
     if response.status_code == 200 then
@@ -304,12 +308,15 @@ MetaElement.__index = function (public,private,self,index)
 end
 
 PublicElement.get_html = function(public, private)
+
+    print("aaa")
     local response = private.fetch({
         method = "GET",
         http_version = "1.1",
         url = private.url .. "/session/" .. private.session_id .. "/element/" .. private.element_id .. "/property/outerHTML"
     })
-    
+    print("bbb")
+
     if response.status_code == 200 then
         local body = response.read_body_json()
         if body and body.value then
@@ -361,7 +368,9 @@ PublicElement.get_attribute = function(public, private, attribute_name)
 end
 
 
-
+PublicElement.get_id = function(public, private)
+    return private.element_id   
+end
 
 PublicElement.execute_script = function(public, private, script, ...)
     if not script or type(script) ~= "string" then
@@ -522,7 +531,9 @@ end
 
 
 
-
+PublicSession.get_id = function(public, private)
+    return private.session_id
+end
 
 PublicSession.get_element = function(public,private,by, value)
     if not by or not value then
