@@ -27,13 +27,9 @@ In this example, the following actions happen:
 ## 📦 Installation
 
 **Download and install** the correct [VibeScript](https://github.com/OUIsolutions/VibeScript/releases/) release for your operational system.
-
-**Download and install** [Darwin](https://github.com/OUIsolutions/Darwin#-installation):
-
 ```bash
-curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.4.0/darwin.out -o darwin.out && sudo chmod +x darwin.out && sudo mv darwin.out /usr/bin/darwin
-```
 
+```
 
 
 ## 🛠️ Usage
@@ -97,13 +93,25 @@ The program generates the following under the directory specified in the `--out_
 - 📁 **`downloads/`**: Directory for any downloaded files
 
 ### JSON Structure
-
 ```json
 {
   "hatnote": "Optional disambiguation or note text from Wikipedia's article",
   "text": "Full article text content"
 }
 ```
+
+## 📦 Building from scrach
+**Download and install** [Darwin](https://github.com/OUIsolutions/Darwin#-installation):
+
+```bash
+curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.4.0/darwin.out -o darwin.out && sudo chmod +x darwin.out && sudo mv darwin.out /usr/bin/darwin
+```
+run the blueprint action, to generate all the **releases** in the **release** dir 
+```bash
+darwin run_blueprint
+```
+
+
 
 ## ⚠️ Error Handling
 
@@ -141,55 +149,3 @@ Consider using JS functions in such cases.
     └── api_lib.lua  # Importable API library
 ```
 
-## 📦 Bundling
-
-> [!IMPORTANT]
-> Make sure to have [Darwin](https://github.com/OUIsolutions/Darwin/) installed.
-
-To bundle the code under `api/` and `cli/` just run the following command on the root directory of the project:
-
-```bash
-darwin run_blueprint
-```
-
-## ❗ Development Notice
-
-Because of the nature of Lua and the bundle content, make sure to use standardized and different names having scope handling in mind. Public functions must be created through the `PublicApi` table and private functions should either be declared using `local function...` or through the `PrivateApi` table.
-
-Functions declared on the `PublicApi` table under `api/` will be available for use in the `API` table in the release bundle.
-
-> Keep in mind that private functions used in a file should **only** be used in that file alone as the Lua language does not support function hoisting.
-
-### ❌ Incorrect Usage
-
-```lua
--- api/main.lua
-function fetch_wikipedia_article(props)
-    ...
-end
-
--- cli/main.lua
-function main()
-  ...
-  fetch_wikipedia_article(props)
-  ...
-end
-```
-
-### ✅ Correct Usage
-
-```lua
--- api/main.lua
-function PublicApi.fetch_wikipedia_article(props)
-    ...
-end
-
--- cli/main.lua
-function main()
-  ...
-  API.fetch_wikipedia_article(props)
-  ...
-end
-```
-
-The bundling is done according to what's described in `darwinconf.lua` file.
