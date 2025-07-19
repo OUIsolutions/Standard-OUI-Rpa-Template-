@@ -45,13 +45,13 @@ The CLI tool works with two main actions: **configure** and **run**.
 #### 1️⃣ First, configure Chrome paths:
 
 ```bash
-vibescript release/cli.lua configure --chromedriver_path <path> --chrome_binary <path>
+vibescript wikisearch configure --chromedriver_path <path> --chrome_binary <path>
 ```
 
 #### 2️⃣ Then, run the Wikipedia search:
 
 ```bash
-vibescript release/cli.lua run --article <article_name> --out_dir <path>
+vibescript wikisearch run --article <article_name> --out_dir <path>
 ```
 
 ### 📝 Configure Command Options
@@ -73,20 +73,20 @@ vibescript release/cli.lua run --article <article_name> --out_dir <path>
 First, configure Chrome paths (only needed once):
 
 ```bash
-vibescript release/cli.lua configure --chromedriver_path chrome/chromedriver-linux64/chromedriver --chrome_binary chrome/chrome-linux64/chrome
+vibescript wikisearch configure --chromedriver_path chrome/chromedriver-linux64/chromedriver --chrome_binary chrome/chrome-linux64/chrome
 ```
 
 Then search for Wikipedia articles:
 
 ```bash
-vibescript release/cli.lua run --article macaco --out_dir teste
+vibescript wikisearch run --article macaco --out_dir teste
 ```
 
 You can also use shorter aliases:
 
 ```bash
-vibescript release/cli.lua configure -d chrome/chromedriver-linux64/chromedriver -c chrome/chrome-linux64/chrome
-vibescript release/cli.lua run -a macaco -o teste
+vibescript wikisearch configure -d chrome/chromedriver-linux64/chromedriver -c chrome/chrome-linux64/chrome
+vibescript wikisearch run -a macaco -o teste
 ```
 
 ## 📤 Output
