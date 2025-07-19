@@ -26,7 +26,7 @@ This Wikipedia bot performs these steps automatically:
 ## 🎬 Quick Start (For Complete Beginners)
 
 ### What You'll Need:
-- A computer running Linux, Mac, or Windows
+- A computer running Linux
 - Internet connection
 - Basic command line knowledge (we'll teach you!)
 
@@ -34,17 +34,12 @@ This Wikipedia bot performs these steps automatically:
 
 #### 🖥️ Step 1: Open Your Terminal/Command Line
 
-**On Linux/Mac:**
-- Press `Ctrl + Alt + T` (Linux) or `Cmd + Space` and type "Terminal" (Mac)
-
-**On Windows:**
-- Press `Win + R`, type `cmd` and press Enter
+Press `Ctrl + Alt + T` to open the terminal.
 
 #### 📦 Step 2: Install VibeScript (The Programming Language)
 
 VibeScript is a special programming language that controls web browsers. Copy and paste this command:
 
-**For Linux/Mac:**
 ```bash
 curl -L https://github.com/OUIsolutions/VibeScript/releases/download/0.15.1/vibescript.out -o vibescript.out && sudo chmod +x vibescript.out && sudo mv vibescript.out /bin/vibescript
 ```
@@ -54,13 +49,10 @@ curl -L https://github.com/OUIsolutions/VibeScript/releases/download/0.15.1/vibe
 - `chmod +x` → Makes it executable (runnable)
 - `mv /bin/vibescript` → Installs it system-wide
 
-**For Windows:** Download from [VibeScript Releases](https://github.com/OUIsolutions/VibeScript/releases/) and add to PATH.
-
 #### 🌐 Step 3: Download Chrome and ChromeDriver
 
 These are the tools that let our bot control Chrome browser:
 
-**For Linux:**
 ```bash
 # Create a folder for Chrome
 mkdir -p chrome
@@ -77,10 +69,6 @@ unzip chromedriver.zip -d chrome && unzip chrome-linux64.zip -d chrome
 # Clean up zip files
 rm *.zip
 ```
-
-**For Mac:** Replace `linux64` with `mac-x64` in the URLs above.
-
-**For Windows:** Replace `linux64` with `win64` in the URLs above.
 
 #### 🤖 Step 4: Download Our Wikipedia Bot
 
@@ -336,12 +324,10 @@ Command-line interface that:
 **Solution:** VibeScript isn't installed properly. Re-run Step 2.
 
 #### Problem: "Chrome failed to start"
-**Solutions:**
-1. Check Chrome path is correct
-2. On Linux, you might need to install dependencies:
-   ```bash
-   sudo apt-get install -y libglib2.0-0 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2
-   ```
+**Solution:** You might need to install Chrome dependencies:
+```bash
+sudo apt-get install -y libglib2.0-0 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2
+```
 
 #### Problem: "Article not found"
 **Solutions:**
@@ -350,7 +336,7 @@ Command-line interface that:
 3. Check internet connection
 
 #### Problem: "Permission denied"
-**Solution:** On Linux/Mac, add `sudo` before commands
+**Solution:** Add `sudo` before commands that require administrator privileges
 
 ### Getting Help
 
