@@ -40,25 +40,53 @@ curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.4.0/darwin.ou
 
 ### Command Line Interface
 
-Run the CLI tool with the following required arguments:
+The CLI tool works with two main actions: **configure** and **run**.
+
+#### 1️⃣ First, configure Chrome paths:
 
 ```bash
-vibescript release/cli.lua --article <article_name> --chromedriver_path <path> --chrome_binary <path> --out_dir <path>
+vibescript release/cli.lua configure --chromedriver_path <path> --chrome_binary <path>
 ```
 
-### 📝 Available Options
-
-| Option                | Alias | Description                                | Required | Example                                                            |
-| --------------------- | ----- | ------------------------------------------ | -------- | ------------------------------------------------------------------ |
-| `--article`           | `-a`  | 📰 Name of the Wikipedia article to search | ✅ Yes   | `--article "Phreaking"`                                            |
-| `--chromedriver_path` | `-d`  | 🚗 Path to ChromeDriver executable         | ✅ Yes   | `--chromedriver_path ./chrome-1/chromedriver-linux64/chromedriver` |
-| `--chrome_binary`     | `-c`  | 🌐 Path to Chrome/Chromium binary          | ✅ Yes   | `--chrome_binary ./chrome-1/chrome-linux64/chrome`                 |
-| `--out_dir`           | `-o`  | 📁 Output directory for results            | ✅ Yes   | `--out_dir "./data"`                                               |
-
-### 💡 Example
+#### 2️⃣ Then, run the Wikipedia search:
 
 ```bash
-vibescript release/cli.lua -a "Phreaking" -d "./chrome/chromedriver-linux64/chromedriver" -c "./chrome/chrome-linux64/chrome" -o "./data"
+vibescript release/cli.lua run --article <article_name> --out_dir <path>
+```
+
+### 📝 Configure Command Options
+
+| Option                | Alias | Description                                | Required | Example                                                       |
+| --------------------- | ----- | ------------------------------------------ | -------- | ------------------------------------------------------------- |
+| `--chromedriver_path` | `-d`  | 🚗 Path to ChromeDriver executable         | ✅ Yes   | `--chromedriver_path chrome/chromedriver-linux64/chromedriver` |
+| `--chrome_binary`     | `-c`  | 🌐 Path to Chrome/Chromium binary          | ✅ Yes   | `--chrome_binary chrome/chrome-linux64/chrome`                |
+
+### 📝 Run Command Options
+
+| Option      | Alias | Description                                | Required | Example                    |
+| ----------- | ----- | ------------------------------------------ | -------- | -------------------------- |
+| `--article` | `-a`  | 📰 Name of the Wikipedia article to search | ✅ Yes   | `--article "macaco"`       |
+| `--out_dir` | `-o`  | 📁 Output directory for results            | ✅ Yes   | `--out_dir "teste"`        |
+
+### 💡 Complete Example
+
+First, configure Chrome paths (only needed once):
+
+```bash
+vibescript release/cli.lua configure --chromedriver_path chrome/chromedriver-linux64/chromedriver --chrome_binary chrome/chrome-linux64/chrome
+```
+
+Then search for Wikipedia articles:
+
+```bash
+vibescript release/cli.lua run --article macaco --out_dir teste
+```
+
+You can also use shorter aliases:
+
+```bash
+vibescript release/cli.lua configure -d chrome/chromedriver-linux64/chromedriver -c chrome/chrome-linux64/chrome
+vibescript release/cli.lua run -a macaco -o teste
 ```
 
 ## 📤 Output
