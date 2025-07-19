@@ -1,214 +1,414 @@
 # 🤖 OUI Solutions Standard RPA Template
 
-A standard model for Robot Proceess Automation using Vibescript.
+A beginner-friendly template for creating Robot Process Automation (RPA) bots using VibeScript that can control web browsers automatically.
 
-## 📋 Overview
+## 🎯 What is this?
 
-This RPA template automates the process of extracting Wikipedia articles using Chrome WebDriver.
+This is a **Robot Process Automation (RPA)** template that teaches you how to build bots that can:
+- 🌐 Open web browsers automatically
+- 🖱️ Click buttons and fill forms without human interaction
+- 📊 Extract data from websites
+- 💾 Save information to files
 
-The created features can be used either through the provided CLI on `release/cli.lua` or by importing the generated library on `release/api_lib.lua` on a lua file.
+**In this example**, we built a bot that searches Wikipedia articles and saves their content - but you can modify it to automate any web task!
 
-In this example, the following actions happen:
+## 📋 What Does This Bot Do?
 
-1. 🚀 **Initialization**: Sets up ChromeDriver and opens browser session
-2. 🔍 **Navigation**: Goes to main Wikipedia page
-3. 🔎 **Search**: Enters article name in search box
-4. 📰 **Selection**: Clicks on the first search result
-5. 📄 **Data Extraction**: Retrieves article content and hatnotes
-6. 💾 **Save**: Outputs results to **JSON** file
+This Wikipedia bot performs these steps automatically:
 
-## Releases
-| Item                                                                                                            | Description                                     | 
-|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------|
-|[cli.lua](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/cli.lua)            | Cli to be used in comand line                   |
-|[api_lib.lua](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/api_lib.lua)    | api to be used with **require** in standard lua |
-|[api.lua](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/api.lua)            | api to be used embeding in other lua projects   |
+1. 🚀 **Opens Chrome browser** (without you clicking anything!)
+2. 🔍 **Goes to Wikipedia.org**
+3. 🔎 **Types your search term** in the search box
+4. 📰 **Clicks on the first result**
+5. 📄 **Reads the entire article**
+6. 💾 **Saves it as a JSON file** on your computer
 
-## 📝 Requirements
+## 🎬 Quick Start (For Complete Beginners)
 
-- [Darwin](https://github.com/OUIsolutions/Darwin#-installation)
-- [VibeScript](https://github.com/ouisolutions/vibescript#-installation)
-- Chrome binary (chrome or chromium browser)
-- ChromeDriver
+### What You'll Need:
+- A computer running Linux, Mac, or Windows
+- Internet connection
+- Basic command line knowledge (we'll teach you!)
 
-## 📦 Installation
+### Step-by-Step Installation
 
-### Step1 : **Download and install** the correct [VibeScript](https://github.com/OUIsolutions/VibeScript/releases/) release for your operational system.
+#### 🖥️ Step 1: Open Your Terminal/Command Line
+
+**On Linux/Mac:**
+- Press `Ctrl + Alt + T` (Linux) or `Cmd + Space` and type "Terminal" (Mac)
+
+**On Windows:**
+- Press `Win + R`, type `cmd` and press Enter
+
+#### 📦 Step 2: Install VibeScript (The Programming Language)
+
+VibeScript is a special programming language that controls web browsers. Copy and paste this command:
+
+**For Linux/Mac:**
 ```bash
-curl -L https://github.com/OUIsolutions/VibeScript/releases/download/0.15.1/vibescript.out -o vibescript.out && sudo chmod +x vibescript.out && sudo mv vibescript.out /bin/vibescript 
+curl -L https://github.com/OUIsolutions/VibeScript/releases/download/0.15.1/vibescript.out -o vibescript.out && sudo chmod +x vibescript.out && sudo mv vibescript.out /bin/vibescript
 ```
 
-### Step2: **Download and install** `chrome` and  `chromedriver`
+**What this does:**
+- `curl -L` → Downloads VibeScript from the internet
+- `chmod +x` → Makes it executable (runnable)
+- `mv /bin/vibescript` → Installs it system-wide
+
+**For Windows:** Download from [VibeScript Releases](https://github.com/OUIsolutions/VibeScript/releases/) and add to PATH.
+
+#### 🌐 Step 3: Download Chrome and ChromeDriver
+
+These are the tools that let our bot control Chrome browser:
+
+**For Linux:**
 ```bash
-# Download ChromeDriver and Chrome
+# Create a folder for Chrome
 mkdir -p chrome
+
+# Download ChromeDriver (the controller)
 curl -L https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.94/linux64/chromedriver-linux64.zip -o chromedriver.zip
+
+# Download Chrome browser
 curl -L https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.94/linux64/chrome-linux64.zip -o chrome-linux64.zip
+
+# Extract both files
 unzip chromedriver.zip -d chrome && unzip chrome-linux64.zip -d chrome
+
+# Clean up zip files
 rm *.zip
 ```
-### Step3: **Download the cli.lua release** from the [releases page](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/tag/0.1.0)
+
+**For Mac:** Replace `linux64` with `mac-x64` in the URLs above.
+
+**For Windows:** Replace `linux64` with `win64` in the URLs above.
+
+#### 🤖 Step 4: Download Our Wikipedia Bot
+
 ```bash
 curl -L https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/cli.lua -o cli.lua
 ```
-### Step4: **Configure alias to vibescript**
+
+This downloads the actual bot code!
+
+#### ⚙️ Step 5: Set Up the Bot
+
+First, create a shortcut name for our bot:
 ```bash
 vibescript add_script --file cli.lua wikisearch
 ```
-### Step5: Configure the Chrome paths
+
+Now you can use `wikisearch` instead of typing the full file name!
+
+#### 🔧 Step 6: Tell the Bot Where Chrome Is
+
 ```bash
 vibescript wikisearch configure --chromedriver_path chrome/chromedriver-linux64/chromedriver --chrome_binary chrome/chrome-linux64/chrome
 ```
-### Step6: **Run the Wikipedia search**
+
+This tells the bot:
+- Where to find ChromeDriver (the controller)
+- Where to find Chrome browser
+
+#### 🎉 Step 7: Run Your First Search!
+
 ```bash
-vibescript wikisearch run --article linux --out_dir teste
+vibescript wikisearch run --article "Albert Einstein" --out_dir my_results
 ```
 
+**What happens:**
+1. Chrome opens automatically
+2. Goes to Wikipedia
+3. Searches for "Albert Einstein"
+4. Saves the article to `my_results/result.json`
 
-## 🛠️ Usage
+## 📚 Detailed Usage Guide
 
-### Command Line Interface
+### Understanding the Commands
 
-The CLI tool works with two main actions: **configure** and **run**.
+Our bot has two main commands: `configure` and `run`.
 
-#### 1️⃣ First, configure Chrome paths:
+#### 🔧 Configure Command
 
+**Purpose:** Tells the bot where to find Chrome on your computer
+
+**Full syntax:**
 ```bash
 vibescript wikisearch configure --chromedriver_path <path> --chrome_binary <path>
 ```
 
-#### 2️⃣ Then, run the Wikipedia search:
+**Parameters explained:**
 
+| Parameter | What it means | Example |
+|-----------|---------------|---------|
+| `--chromedriver_path` | Location of ChromeDriver (the controller) | `chrome/chromedriver-linux64/chromedriver` |
+| `--chrome_binary` | Location of Chrome browser | `chrome/chrome-linux64/chrome` |
+
+**Short version (using aliases):**
 ```bash
-vibescript wikisearch run --article <article_name> --out_dir <path>
+vibescript wikisearch configure -d <chromedriver> -c <chrome>
 ```
 
-### 📝 Configure Command Options
+#### 🏃 Run Command
 
-| Option                | Alias | Description                                | Required | Example                                                       |
-| --------------------- | ----- | ------------------------------------------ | -------- | ------------------------------------------------------------- |
-| `--chromedriver_path` | `-d`  | 🚗 Path to ChromeDriver executable         | ✅ Yes   | `--chromedriver_path chrome/chromedriver-linux64/chromedriver` |
-| `--chrome_binary`     | `-c`  | 🌐 Path to Chrome/Chromium binary          | ✅ Yes   | `--chrome_binary chrome/chrome-linux64/chrome`                |
+**Purpose:** Actually searches Wikipedia and saves results
 
-### 📝 Run Command Options
-
-| Option      | Alias | Description                                | Required | Example                    |
-| ----------- | ----- | ------------------------------------------ | -------- | -------------------------- |
-| `--article` | `-a`  | 📰 Name of the Wikipedia article to search | ✅ Yes   | `--article "macaco"`       |
-| `--out_dir` | `-o`  | 📁 Output directory for results            | ✅ Yes   | `--out_dir "teste"`        |
-
-### 💡 Complete Example
-
-First, configure Chrome paths (only needed once):
-
+**Full syntax:**
 ```bash
-vibescript wikisearch configure --chromedriver_path chrome/chromedriver-linux64/chromedriver --chrome_binary chrome/chrome-linux64/chrome
+vibescript wikisearch run --article <article_name> --out_dir <folder>
 ```
 
-Then search for Wikipedia articles:
+**Parameters explained:**
 
+| Parameter | What it means | Example |
+|-----------|---------------|---------|
+| `--article` | What to search on Wikipedia | `"Python programming"` |
+| `--out_dir` | Where to save results | `results` |
+
+**Short version:**
 ```bash
-vibescript wikisearch run --article macaco --out_dir teste
+vibescript wikisearch run -a "Python programming" -o results
 ```
 
-You can also use shorter aliases:
+### 📤 Understanding the Output
 
-```bash
-vibescript wikisearch configure -d chrome/chromedriver-linux64/chromedriver -c chrome/chrome-linux64/chrome
-vibescript wikisearch run -a macaco -o teste
+After running, you'll find:
+
+```
+my_results/
+├── result.json      # The Wikipedia article
+└── downloads/       # Any images or files from the page
 ```
 
-## 📤 Output
-
-The program generates the following under the directory specified in the `--out_dir` option:
-
-- 📄 **`result.json`**: Contains extracted article content
-- 📁 **`downloads/`**: Directory for any downloaded files
-
-### JSON Structure
+**The JSON file looks like:**
 ```json
 {
-  "hatnote": "Optional disambiguation or note text from Wikipedia's article",
-  "text": "Full article text content"
+  "hatnote": "This article is about the physicist. For other uses, see Albert Einstein (disambiguation).",
+  "text": "Albert Einstein (14 March 1879 – 18 April 1955) was a German-born theoretical physicist..."
 }
 ```
-## Api Usage 
 
-To use the API, you can import the [`api_lib.lua`](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/api_lib.lua) file in your Lua project:
+- `hatnote`: Special notes at the top of Wikipedia articles
+- `text`: The actual article content
 
-download the file with:
+## 🛠️ Downloads and Installation Options
+
+### Pre-built Releases
+
+| File | What it's for | How to use |
+|------|---------------|------------|
+| [cli.lua](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/cli.lua) | Command-line tool | Use with `vibescript` command |
+| [api_lib.lua](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/api_lib.lua) | Programming library | Import in Lua scripts with `require()` |
+| [api.lua](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/api.lua) | Embedded library | Copy-paste into other projects |
+
+## 👨‍💻 For Developers: Using the API
+
+### Basic API Usage
+
+If you want to use this bot in your own Lua programs:
+
+1. **Download the API library:**
 ```bash
-curl -L https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/api_lib.lua -o wikisearch.lua 
+curl -L https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/releases/download/0.1.0/api_lib.lua -o wikisearch.lua
 ```
 
-Then, you can use it like this:
+2. **Create your own script (`my_wikipedia_bot.lua`):**
 ```lua
+-- Import the Wikipedia bot library
+local wikisearch = require("wikisearch")
 
-local api = require("wikisearch")
-
-
-local result = api.fetch_wikipedia_article({
-    article = "linux",
-    chromedriver_path = "chrome/chromedriver-linux64/chromedriver",
-    chrome_binary = "chrome/chrome-linux64/chrome",
-    outdir = "teste"
+-- Search for an article
+local result = wikisearch.fetch_wikipedia_article({
+    article = "Linux",                                              -- What to search
+    chromedriver_path = "chrome/chromedriver-linux64/chromedriver", -- ChromeDriver location
+    chrome_binary = "chrome/chrome-linux64/chrome",                 -- Chrome location
+    outdir = "my_search_results"                                    -- Where to save
 })
-print("Hatchnote: " .. (result.hatnote or "No hatnote found"))
-print("Article content:"..result.text)
 
+-- Check if we found something
+if result then
+    print("=== Wikipedia Article Found ===")
+    
+    -- Print the hatnote if it exists
+    if result.hatnote then
+        print("Note: " .. result.hatnote)
+    end
+    
+    -- Print first 500 characters of the article
+    print("\nArticle preview:")
+    print(string.sub(result.text, 1, 500) .. "...")
+else
+    print("Article not found!")
+end
 ```
-run with vibescript:
+
+3. **Run your script:**
 ```bash
-vibescript your_lua_file.lua
+vibescript my_wikipedia_bot.lua
 ```
 
+### Advanced API Example
 
-## 📦 Building from scrach
-**Download and install** [Darwin](https://github.com/OUIsolutions/Darwin#-installation):
+```lua
+local wikisearch = require("wikisearch")
 
+-- List of articles to search
+local articles = {"Python programming", "JavaScript", "Lua programming"}
+
+-- Search multiple articles
+for _, article in ipairs(articles) do
+    print("\nSearching for: " .. article)
+    
+    local result = wikisearch.fetch_wikipedia_article({
+        article = article,
+        chromedriver_path = "chrome/chromedriver-linux64/chromedriver",
+        chrome_binary = "chrome/chrome-linux64/chrome",
+        outdir = "results/" .. article:gsub(" ", "_")
+    })
+    
+    if result then
+        print("✓ Found! Saved to results/" .. article:gsub(" ", "_"))
+    else
+        print("✗ Not found")
+    end
+end
+```
+
+## 🏗️ Building From Source (Advanced)
+
+### Prerequisites
+
+1. **Install Darwin (Build Tool):**
 ```bash
 curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.4.0/darwin.out -o darwin.out && sudo chmod +x darwin.out && sudo mv darwin.out /usr/bin/darwin
 ```
-run the blueprint action, to generate all the **releases** in the **release** dir 
+
+2. **Clone this repository:**
+```bash
+git clone https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-.git
+cd Standard-OUI-Rpa-Template-
+```
+
+3. **Build everything:**
 ```bash
 darwin run_blueprint
 ```
 
+This creates all files in the `release/` directory.
 
-
-## ⚠️ Error Handling
-
-- **Article Not Found**: Returns `nil` if no search results are found
-- **Missing Arguments**: Displays error message for required CLI parameters
-- **Directory Management**: Automatically creates and cleans output directories
-
-
-## 📁 Project Structure
-
-### Development Structure
-
-All of the code under the `api/` and `cli/` directories is bundled to `release/` through [Darwin](https://github.com/OUIsolutions/Darwin/). This means that the developed code must be in one of the two aforementioned directories, in their respective directory, that is.
+### Project Structure Explained
 
 ```
-├── api/             # API modules and source code
-│   └── main.lua     # Main public API function
-├── cli/             # CLI
-│   └── main.lua     # CLI implementation of the API
-└── README.md        # This documentation
+Standard-OUI-Rpa-Template-/
+├── api/                    # Source code for the library
+│   ├── main.lua           # Main API functions
+│   └── scripts.lua        # JavaScript code for browser
+├── cli/                    # Source code for command-line tool
+│   └── main.lua           # CLI implementation
+├── release/               # Built files (generated)
+│   ├── cli.lua           # Complete CLI tool
+│   ├── api.lua           # Standalone API
+│   └── api_lib.lua       # Importable API
+└── README.md             # This file
 ```
+
+### Understanding the Code Structure
+
+#### `api/main.lua`
+Contains the core functionality:
+- Browser initialization
+- Wikipedia navigation
+- Content extraction
 
 #### `api/scripts.lua`
+JavaScript code that runs inside the browser to extract text efficiently.
 
-The file `api/scripts.lua` conttains a JS function to be executed by the webdriver session. This was done in order to get the text content from the article page as it may be extremely large.
+#### `cli/main.lua`
+Command-line interface that:
+- Parses arguments
+- Calls API functions
+- Handles errors
 
-Consider using JS functions in such cases.
+## 🚨 Troubleshooting Guide
 
-### Release Bundle Structure
+### Common Problems and Solutions
 
-```
-└── release/         # Bundled versions
-    ├── cli.lua      # Main CLI interface
-    ├── api.lua      # API library
-    └── api_lib.lua  # Importable API library
-```
+#### Problem: "Command not found: vibescript"
+**Solution:** VibeScript isn't installed properly. Re-run Step 2.
 
+#### Problem: "Chrome failed to start"
+**Solutions:**
+1. Check Chrome path is correct
+2. On Linux, you might need to install dependencies:
+   ```bash
+   sudo apt-get install -y libglib2.0-0 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2
+   ```
+
+#### Problem: "Article not found"
+**Solutions:**
+1. Check spelling
+2. Try simpler search terms
+3. Check internet connection
+
+#### Problem: "Permission denied"
+**Solution:** On Linux/Mac, add `sudo` before commands
+
+### Getting Help
+
+1. Check existing [issues](https://github.com/OUIsolutions/Standard-OUI-Rpa-Template-/issues)
+2. Create a new issue with:
+   - Your operating system
+   - The command you ran
+   - The error message
+   - What you expected to happen
+
+## 🎓 Learning Resources
+
+### Beginner Tutorials
+
+1. **Understanding RPA:**
+   - RPA = Robot Process Automation
+   - Automates repetitive tasks
+   - No human interaction needed
+
+2. **How Web Automation Works:**
+   - WebDriver controls the browser
+   - Sends commands like "click here" or "type this"
+   - Can read page content
+
+3. **JSON Basics:**
+   ```json
+   {
+     "key": "value",
+     "number": 123,
+     "list": ["item1", "item2"]
+   }
+   ```
+
+### Next Steps
+
+After mastering this template, try:
+1. Modifying it to search other websites
+2. Adding features like downloading images
+3. Creating your own RPA bots
+
+## 📜 License
+
+This project is open source. You can use, modify, and share it freely.
+
+## 🤝 Contributing
+
+We welcome contributions! Even fixing typos helps!
+
+1. Fork the repository
+2. Make your changes
+3. Submit a pull request
+
+## 📞 Support
+
+- 📧 Email: [your-email@example.com]
+- 💬 Discord: [Your Discord Server]
+- 📖 Wiki: [Project Wiki]
+
+---
+
+**Remember:** This is just the beginning! Once you understand this template, you can automate almost any web task. Happy automating! 🚀
