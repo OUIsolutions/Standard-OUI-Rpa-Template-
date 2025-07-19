@@ -34,6 +34,56 @@ In this example, the following actions happen:
 curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.4.0/darwin.out -o darwin.out && sudo chmod +x darwin.out && sudo mv darwin.out /usr/bin/darwin
 ```
 
+
+
+## 🛠️ Usage
+
+### Command Line Interface
+
+Run the CLI tool with the following required arguments:
+
+```bash
+vibescript release/cli.lua --article <article_name> --chromedriver_path <path> --chrome_binary <path> --out_dir <path>
+```
+
+### 📝 Available Options
+
+| Option                | Alias | Description                                | Required | Example                                                            |
+| --------------------- | ----- | ------------------------------------------ | -------- | ------------------------------------------------------------------ |
+| `--article`           | `-a`  | 📰 Name of the Wikipedia article to search | ✅ Yes   | `--article "Phreaking"`                                            |
+| `--chromedriver_path` | `-d`  | 🚗 Path to ChromeDriver executable         | ✅ Yes   | `--chromedriver_path ./chrome-1/chromedriver-linux64/chromedriver` |
+| `--chrome_binary`     | `-c`  | 🌐 Path to Chrome/Chromium binary          | ✅ Yes   | `--chrome_binary ./chrome-1/chrome-linux64/chrome`                 |
+| `--out_dir`           | `-o`  | 📁 Output directory for results            | ✅ Yes   | `--out_dir "./data"`                                               |
+
+### 💡 Example
+
+```bash
+vibescript release/cli.lua -a "Phreaking" -d "./chrome/chromedriver-linux64/chromedriver" -c "./chrome/chrome-linux64/chrome" -o "./data"
+```
+
+## 📤 Output
+
+The program generates the following under the directory specified in the `--out_dir` option:
+
+- 📄 **`result.json`**: Contains extracted article content
+- 📁 **`downloads/`**: Directory for any downloaded files
+
+### JSON Structure
+
+```json
+{
+  "hatnote": "Optional disambiguation or note text from Wikipedia's article",
+  "text": "Full article text content"
+}
+```
+
+## ⚠️ Error Handling
+
+- **Article Not Found**: Returns `nil` if no search results are found
+- **Missing Arguments**: Displays error message for required CLI parameters
+- **Directory Management**: Automatically creates and cleans output directories
+
+
 ## 📁 Project Structure
 
 ### Development Structure
@@ -115,57 +165,3 @@ end
 ```
 
 The bundling is done according to what's described in `darwinconf.lua` file.
-
-## 🛠️ Usage
-
-### Command Line Interface
-
-Run the CLI tool with the following required arguments:
-
-```bash
-vibescript release/cli.lua --article <article_name> --chromedriver_path <path> --chrome_binary <path> --out_dir <path>
-```
-
-### 📝 Available Options
-
-| Option                | Alias | Description                                | Required | Example                                                            |
-| --------------------- | ----- | ------------------------------------------ | -------- | ------------------------------------------------------------------ |
-| `--article`           | `-a`  | 📰 Name of the Wikipedia article to search | ✅ Yes   | `--article "Phreaking"`                                            |
-| `--chromedriver_path` | `-d`  | 🚗 Path to ChromeDriver executable         | ✅ Yes   | `--chromedriver_path ./chrome-1/chromedriver-linux64/chromedriver` |
-| `--chrome_binary`     | `-c`  | 🌐 Path to Chrome/Chromium binary          | ✅ Yes   | `--chrome_binary ./chrome-1/chrome-linux64/chrome`                 |
-| `--out_dir`           | `-o`  | 📁 Output directory for results            | ✅ Yes   | `--out_dir "./data"`                                               |
-
-### 💡 Example
-
-```bash
-vibescript release/cli.lua -a "Phreaking" -d "./chrome/chromedriver-linux64/chromedriver" -c "./chrome/chrome-linux64/chrome" -o "./data"
-```
-
-## 📤 Output
-
-The program generates the following under the directory specified in the `--out_dir` option:
-
-- 📄 **`result.json`**: Contains extracted article content
-- 📁 **`downloads/`**: Directory for any downloaded files
-
-### JSON Structure
-
-```json
-{
-  "hatnote": "Optional disambiguation or note text from Wikipedia's article",
-  "text": "Full article text content"
-}
-```
-
-## ⚠️ Error Handling
-
-- **Article Not Found**: Returns `nil` if no search results are found
-- **Missing Arguments**: Displays error message for required CLI parameters
-- **Directory Management**: Automatically creates and cleans output directories
-
-## 🐛 Troubleshooting
-
-- Ensure ChromeDriver version matches your Chrome browser version
-- Verify all file paths are correct and accessible
-- Check that output directory has write permissions
-- Make sure Chrome binary is executable
