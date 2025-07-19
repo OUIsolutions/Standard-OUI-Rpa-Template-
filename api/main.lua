@@ -33,10 +33,13 @@ end
 
 local function get_article_content(session)
     local content_map = {}
-    local page_hatnote = session.get_element_by_css_selector(".hatnote")
-    if page_hatnote then
-        content_map.hatnote = page_hatnote.get_text()
-    end
+
+    local success, page_hatnote = pcall(function()
+            return session.get_element_by_css_selector(".hatnote")
+        end)
+        if success and page_hatnote then
+            content_map.hatnote = page_hatnote.get_text()
+        end
 
     local text = session.get_element_by_id("mw-content-text")
     content_map.text  =text.execute_script(PrivateApi.get_all_text )

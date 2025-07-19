@@ -22,13 +22,13 @@ function run_crawler()
     
     local chromedriver_path = get_prop("chromedriver_path")
     if not chromedriver_path then
-        error("Error: ChromeDriver path is not configured. Please run 'configure_chrome'")
+        error("Error: ChromeDriver path is not configured. Please run 'configure'")
         return
     end
 
     local chrome_binary = get_prop("chrome_binary")
     if not chrome_binary then
-        error("Error: Chrome binary is not configured. Please run 'configure_chrome'")
+        error("Error: Chrome binary is not configured. Please run 'configure'")
         return
     end
 
@@ -63,16 +63,16 @@ function main()
     local possible_action = argv.get_next_unused()
     if not possible_action then
         error("Error: No action specified. Please provide an action.")
-        error("Available actions: configure_chrome, run_crawler")
+        error("Available actions: configure, run")
         return
     end
 
-    if possible_action == "configure_chrome" then
+    if possible_action == "configure" then
         configure_chrome()
-    elseif possible_action == "run_crawler" then
+    elseif possible_action == "run" then
         run_crawler()
     else 
-        error("Error: Unknown action '" .. possible_action .. "'.")
+        error("Error: Unknown action '" .. possible_action .. "'. not inside(configur, run)")
         error("Available actions: configure_chrome, run_crawler")
     end
 end
